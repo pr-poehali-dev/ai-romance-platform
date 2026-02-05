@@ -41,13 +41,13 @@ export default function GalleryPage({ characters, onSelectCharacter, onNavigate 
         </Button>
       </header>
 
-      <main className="relative z-10 container mx-auto px-4 py-4">
-        <div className="text-center mb-6 space-y-2">
-          <h2 className="text-5xl font-bold text-foreground">Выбери свою мечту</h2>
-          <p className="text-xl text-muted-foreground">Интимное общение с AI-девушками без границ</p>
+      <main className="relative z-10 container mx-auto px-4 pt-2">
+        <div className="text-center mb-4 space-y-1">
+          <h2 className="text-4xl font-bold text-foreground">Выбери свою мечту</h2>
+          <p className="text-lg text-muted-foreground">Интимное общение с AI-девушками без границ</p>
         </div>
 
-        <div className="relative flex items-center justify-center min-h-[500px] perspective-1000">
+        <div className="relative flex items-center justify-center min-h-[450px] perspective-1000">
           <Button
             onClick={handlePrev}
             variant="ghost"
