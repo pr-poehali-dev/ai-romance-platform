@@ -8,9 +8,10 @@ interface GalleryPageProps {
   characters: Character[];
   onSelectCharacter: (character: Character) => void;
   onNavigate: (page: 'gallery' | 'chat' | 'subscription' | 'profile') => void;
+  hasSubscription: boolean;
 }
 
-export default function GalleryPage({ characters, onSelectCharacter, onNavigate }: GalleryPageProps) {
+export default function GalleryPage({ characters, onSelectCharacter, onNavigate, hasSubscription }: GalleryPageProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleNext = () => {
@@ -97,9 +98,12 @@ export default function GalleryPage({ characters, onSelectCharacter, onNavigate 
                       
                       {isActive && (
                         <Button
-                          onClick={() => onSelectCharacter(character)}
-                          className="w-full bg-gradient-to-r from-neon-pink to-neon-purple hover:opacity-90 text-base py-4 rounded-xl font-bold neon-glow-pink transition-all duration-300 hover:scale-105 animate-pulse-glow"
+                          onClick={() => hasSubscription ? onSelectCharacter(character) : onNavigate('subscription')}
+                          className="w-full bg-gradient-to-r from-neon-pink to-neon-purple hover:opacity-90 text-base py-4 rounded-xl font-bold neon-glow-pink transition-all duration-300 hover:scale-105 animate-pulse-glow relative"
                         >
+                          {!hasSubscription && (
+                            <Icon name="Lock" size={18} className="mr-2" />
+                          )}
                           Начать общение
                         </Button>
                       )}

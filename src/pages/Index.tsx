@@ -147,6 +147,7 @@ export default function Index() {
           characters={characters} 
           onSelectCharacter={handleSelectCharacter}
           onNavigate={setCurrentPage}
+          hasSubscription={hasSubscription}
         />
       )}
       {currentPage === 'chat' && selectedCharacter && (
