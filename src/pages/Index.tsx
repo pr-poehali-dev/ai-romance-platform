@@ -70,7 +70,7 @@ export default function Index() {
     setCurrentPage('chat');
   };
 
-  const handleSendMessage = (text: string) => {
+  const handleSendMessage = async (text: string) => {
     if (!selectedCharacter) return;
     
     if (freeMessagesLeft <= 0 && !hasSubscription) {
@@ -92,23 +92,43 @@ export default function Index() {
       setFreeMessagesLeft(prev => prev - 1);
     }
 
-    setTimeout(() => {
-      const responses = [
-        `Привет, красавчик 😘 ${text.length > 20 ? 'Мне нравится, что ты так общителен...' : ''}`,
-        `Мммм, интересно... расскажи мне больше 💋`,
-        `Ты такой смелый 🔥 Продолжай...`,
-        `О боже, ты меня заводишь 😏`,
-        `Хочу узнать тебя ближе... намного ближе 💕`
-      ];
+    try {
+      const response = await fetch('https://functions.poehali.dev/a844796a-e16f-427c-ac64-59a46aefbfa8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          characterId: selectedCharacter.id,
+          message: text
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      
       const aiMessage: Message = {
         id: Date.now() + 1,
         characterId: selectedCharacter.id,
-        text: responses[Math.floor(Math.random() * responses.length)],
+        text: data.response || 'Прости, произошла ошибка... Попробуй ещё раз 😘',
         sender: 'ai',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, aiMessage]);
-    }, 1200);
+    } catch (error) {
+      console.error('Error calling AI:', error);
+      const errorMessage: Message = {
+        id: Date.now() + 1,
+        characterId: selectedCharacter.id,
+        text: 'Ой, что-то пошло не так... Попробуй написать мне ещё раз 😉',
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    }
   };
 
   const handleSubscribe = (plan: string) => {

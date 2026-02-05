@@ -24,6 +24,7 @@ export default function ChatPage({
   onNavigate
 }: ChatPageProps) {
   const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,8 +33,13 @@ export default function ChatPage({
 
   const handleSend = () => {
     if (inputValue.trim()) {
+      setIsTyping(true);
       onSendMessage(inputValue);
       setInputValue('');
+      
+      setTimeout(() => {
+        setIsTyping(false);
+      }, 3000);
     }
   };
 
@@ -93,25 +99,39 @@ export default function ChatPage({
             </p>
           </div>
         ) : (
-          messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-slide-in`}
-            >
+          <>
+            {messages.map((message) => (
               <div
-                className={`max-w-[70%] rounded-2xl px-6 py-3 ${
-                  message.sender === 'user'
-                    ? 'bg-gradient-to-r from-neon-purple to-neon-pink text-white neon-glow-pink'
-                    : 'glass-effect text-foreground'
-                }`}
+                key={message.id}
+                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-slide-in`}
               >
-                <p className="text-base leading-relaxed">{message.text}</p>
-                <p className="text-xs mt-2 opacity-70">
-                  {message.timestamp.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
-                </p>
+                <div
+                  className={`max-w-[70%] rounded-2xl px-6 py-3 ${
+                    message.sender === 'user'
+                      ? 'bg-gradient-to-r from-neon-purple to-neon-pink text-white neon-glow-pink'
+                      : 'glass-effect text-foreground'
+                  }`}
+                >
+                  <p className="text-base leading-relaxed">{message.text}</p>
+                  <p className="text-xs mt-2 opacity-70">
+                    {message.timestamp.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+            {isTyping && (
+              <div className="flex justify-start animate-fade-in">
+                <div className="glass-effect rounded-2xl px-6 py-4 flex items-center gap-2">
+                  <span className="text-muted-foreground">{character.name} печатает</span>
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-neon-pink rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 bg-neon-purple rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-2 h-2 bg-neon-cyan rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
         )}
         <div ref={messagesEndRef} />
       </main>

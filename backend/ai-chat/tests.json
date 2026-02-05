@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Test chat with Sofia",
+      "method": "POST",
+      "body": {
+        "characterId": 1,
+        "message": "Привет, как дела?"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "response": "string",
+        "model": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test empty message",
+      "method": "POST",
+      "body": {
+        "characterId": 1,
+        "message": ""
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
