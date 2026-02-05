@@ -47,7 +47,7 @@ export default function GalleryPage({ characters, onSelectCharacter, onNavigate 
           <p className="text-lg text-muted-foreground">Интимное общение с AI-девушками без границ</p>
         </div>
 
-        <div className="relative flex items-center justify-center min-h-[450px] perspective-1000">
+        <div className="relative flex items-center justify-center perspective-1000">
           <Button
             onClick={handlePrev}
             variant="ghost"
