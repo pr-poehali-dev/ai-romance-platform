@@ -47,7 +47,7 @@ export default function GalleryPage({ characters, onSelectCharacter, onNavigate 
           <p className="text-xl text-muted-foreground">Интимное общение с AI-девушками без границ</p>
         </div>
 
-        <div className="relative flex items-center justify-center min-h-[600px] perspective-1000">
+        <div className="relative flex items-center justify-center min-h-[500px] perspective-1000">
           <Button
             onClick={handlePrev}
             variant="ghost"
@@ -75,7 +75,7 @@ export default function GalleryPage({ characters, onSelectCharacter, onNavigate 
                   }}
                 >
                   <div className="glass-effect rounded-3xl overflow-hidden border-2 border-neon-purple/30 hover:border-neon-pink/50 transition-all duration-300">
-                    <div className="relative h-96 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden">
                       <img 
                         src={character.image} 
                         alt={character.name}
@@ -87,18 +87,18 @@ export default function GalleryPage({ characters, onSelectCharacter, onNavigate 
                       </div>
                     </div>
                     
-                    <div className="p-6 space-y-4">
-                      <h3 className="text-3xl font-bold text-neon-pink">{character.name}</h3>
-                      <p className="text-foreground leading-relaxed">{character.description}</p>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Icon name="Sparkles" size={16} className="text-neon-purple" />
+                    <div className="p-4 space-y-3">
+                      <h3 className="text-2xl font-bold text-neon-pink">{character.name}</h3>
+                      <p className="text-sm text-foreground leading-relaxed">{character.description}</p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Icon name="Sparkles" size={14} className="text-neon-purple" />
                         <span>{character.personality}</span>
                       </div>
                       
                       {isActive && (
                         <Button
                           onClick={() => onSelectCharacter(character)}
-                          className="w-full bg-gradient-to-r from-neon-pink to-neon-purple hover:opacity-90 text-lg py-6 rounded-xl font-bold neon-glow-pink transition-all duration-300 hover:scale-105 animate-pulse-glow"
+                          className="w-full bg-gradient-to-r from-neon-pink to-neon-purple hover:opacity-90 text-base py-4 rounded-xl font-bold neon-glow-pink transition-all duration-300 hover:scale-105 animate-pulse-glow"
                         >
                           Начать общение
                         </Button>
