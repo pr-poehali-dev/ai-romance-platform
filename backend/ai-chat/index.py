@@ -72,7 +72,7 @@ def handler(event: dict, context) -> dict:
         
         def call_llm(model: str, messages: list) -> dict:
             response = requests.post(
-                'https://api.aitunnel.io/v1/chat/completions',
+                'https://api.aitunnel.ru/v1/chat/completions',
                 headers={
                     'Authorization': f'Bearer {api_key}',
                     'Content-Type': 'application/json'
